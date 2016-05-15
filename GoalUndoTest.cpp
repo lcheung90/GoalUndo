@@ -97,3 +97,17 @@ TEST(GoalUndoTest, testEmptyStringDefaultGoalNaming)
   g.addOperation("");
   ASSERT_TRUE(g.getGoal() == "");
 }
+
+TEST(GoalUndoTest, testNoOpUndo)
+{
+  GoalUndo g;
+  g.undoOperation();
+  ASSERT_TRUE(g.getGoal() == "");
+}
+
+TEST(GoalUndoTest, testNoGoalUndo)
+{
+  GoalUndo g;
+  g.undoGoal();
+  ASSERT_TRUE(g.getGoal() == "");
+}
