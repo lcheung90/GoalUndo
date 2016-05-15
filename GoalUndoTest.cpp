@@ -184,10 +184,41 @@ TEST(GoalUndoTest, testGetOpsDupGoalName)
 
 TEST(GoalUndoTest, testGetOpsProper)
 {
-	GoalUndo g;
-    g.addOperation("someGoal","1");
-    g.addOperation("2");
-    g.addOperation("3");
-    g.addOperation("4");
-    ASSERT_TRUE(g.getOperations() == "1 2 3 4");
+  GoalUndo g;
+  g.addOperation("someGoal","1");
+  g.addOperation("2");
+  g.addOperation("3");
+  g.addOperation("4");
+  ASSERT_TRUE(g.getOperations() == "1 2 3 4");
+}
+
+TEST(GoalUndoTest, testExplicitSimpleOpUndo)
+{
+  GoalUndo g;
+  g.addOperation("someGoal","1");
+  g.addOperation("2");
+  g.addOperation("3");
+  g.addOperation("4");
+  g.undoOperation("4");
+  ASSERT_TRUE(g.getOperations() == "1 2 3");
+}
+
+TEST(GoalUndoTest, testExplicitSimpleOutofOrderOpUndo)
+{
+  GoalUndo g;
+  g.addOperation("someGoal","1");
+  g.addOperation("2");
+  g.addOperation("3");
+  g.addOperation("4");
+  g.undoOperation("2");
+  ASSERT_TRUE(g.getOperations() == "1 3 4");
+}
+
+TEST(GoalUndoTest, testExplicitSingleOpGoalUndo)
+{
+  GoalUndo g;
+  g.addOperation("someGoal","pass");
+  g.undoOperation("pass");
+  ASSERT_TRUE(g.getGoal() == "someGoal");
+  ASSERT_TRUE(g.getOperations() == "");
 }
