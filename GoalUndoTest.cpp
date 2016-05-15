@@ -111,3 +111,50 @@ TEST(GoalUndoTest, testNoGoalUndo)
   g.undoGoal();
   ASSERT_TRUE(g.getGoal() == "");
 }
+
+TEST(GoalUndoTest, testGetOpsNoGoal)
+{
+  GoalUndo g;
+  ASSERT_TRUE(g.getOperations() == "");
+}
+
+TEST(GoalUndoTest, testGetOpsTrickyOps)
+{
+  GoalUndo g;
+  g.addOperation("");
+  g.addOperation("");
+  ASSERT_TRUE(g.getOperations() == " ");
+}
+
+TEST(GoalUndoTest, testGetOpsTrickyOpsRedux)
+{
+  GoalUndo g;
+  g.addOperation("\0");
+  g.addOperation("\0");
+  ASSERT_TRUE(g.getOperations() == "\0 \0");
+}
+
+TEST(GoalUndoTest, testGetOpsTrickyOpsTrifecta)
+{
+  GoalUndo g;
+  g.addOperation(" ");
+  g.addOperation(" ");
+  ASSERT_TRUE(g.getOperations() == "   ");
+}
+
+TEST(GoalUndoTest, testGetOpsNormalOps)
+{
+  GoalUndo g;
+  g.addOperation("learn c++");
+  g.addOperation("master c++");
+  ASSERT_TRUE(g.getOperations() == "learn c++ master c++");
+}
+
+TEST(GoalUndoTest, testGetOps)
+{
+  GoalUndo g;
+  g.addOperation("","eat");
+  g.addOperation("","sleep");
+  g.addOperation("do something else");
+  ASSERT_TRUE(g.getOperations() == "do something else");
+}
