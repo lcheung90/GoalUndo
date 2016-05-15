@@ -158,3 +158,16 @@ TEST(GoalUndoTest, testGetOps)
   g.addOperation("do something else");
   ASSERT_TRUE(g.getOperations() == "do something else");
 }
+
+TEST(GoalUndoTest, testGetOpsAlternatingGoal)
+{
+  GoalUndo g;
+  g.addOperation("Pokemon","Gotta catch'em all");
+  g.addOperation("Ultimate Goal","Travel the world");
+  g.addOperation("Pokemon","Battle every day");
+  g.addOperation("Ultimate Goal","Meet people");
+  ASSERT_TRUE(g.getOperations() == "Meet people");
+  g.undoGoal();
+  g.undoGoal();
+  ASSERT_TRUE(g.getOperations() == "Travel the world");
+}
