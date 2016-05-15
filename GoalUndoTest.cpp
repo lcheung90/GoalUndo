@@ -171,3 +171,23 @@ TEST(GoalUndoTest, testGetOpsAlternatingGoal)
   g.undoGoal();
   ASSERT_TRUE(g.getOperations() == "Travel the world");
 }
+
+TEST(GoalUndoTest, testGetOpsDupGoalName)
+{
+  GoalUndo g;
+  g.addOperation("someGoal","1");
+  g.addOperation("someGoal","2");
+  g.addOperation("someGoal","3");
+  g.addOperation("someGoal","4");
+  ASSERT_TRUE(g.getOperations() == "4");
+}
+
+TEST(GoalUndoTest, testGetOpsProper)
+{
+	GoalUndo g;
+    g.addOperation("someGoal","1");
+    g.addOperation("2");
+    g.addOperation("3");
+    g.addOperation("4");
+    ASSERT_TRUE(g.getOperations() == "1 2 3 4");
+}
