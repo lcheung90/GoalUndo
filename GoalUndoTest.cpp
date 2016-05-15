@@ -52,3 +52,34 @@ TEST(GoalUndoTest, testGetGoalAfterUndoSingleOperationAlt)
   g.undoOperation();
   ASSERT_TRUE(g.getGoal() != "");
 }
+
+TEST(GoalUndoTest, testGetGoalAfterUnitOpGoalUndo)
+{
+  GoalUndo g;
+  string goalName = "Get an 'A'";
+  g.addOperation(goalName, "Write buggy unit test");
+  g.undoGoal();
+  ASSERT_TRUE(g.getGoal() == "");
+}
+
+TEST(GoalUndoTest, testGetGoalAfterMultiOpGoalUndo)
+{
+  GoalUndo g;
+  string goalName = "Get an 'A'";
+  g.addOperation(goalName,"Fork repo");
+  g.addOperation("Write unit test");
+  g.undoGoal();
+  ASSERT_TRUE(g.getGoal() == "");
+}
+
+TEST(GoalUndoTest, testGetGoalAfterMultiOpGoalUndoAlt)
+{
+  GoalUndo g;
+  string goalName = "Get an 'A'";
+  g.addOperation(goalName,"Fork repo");
+  g.addOperation("Write unit test");
+  string altGoalName = "Start summer";
+  g.addOperation(altGoalName,"Chill out");
+  g.undoGoal();
+  ASSERT_TRUE(g.getGoal() == goalName);
+}
