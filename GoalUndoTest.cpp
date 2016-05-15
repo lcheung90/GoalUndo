@@ -222,3 +222,12 @@ TEST(GoalUndoTest, testExplicitSingleOpGoalUndo)
   ASSERT_TRUE(g.getGoal() == "someGoal");
   ASSERT_TRUE(g.getOperations() == "");
 }
+
+TEST(GoalUndoTest, testImplicitGoalRemoval)
+{
+  GoalUndo g;
+  g.addOperation("someGoal","pass");
+  g.undoOperation();
+  ASSERT_TRUE(g.getGoal() == "");
+  ASSERT_TRUE(g.getOperations() == "");
+}
