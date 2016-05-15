@@ -123,7 +123,7 @@ TEST(GoalUndoTest, testGetOpsTrickyOps)
   GoalUndo g;
   g.addOperation("");
   g.addOperation("");
-  ASSERT_TRUE(g.getOperations() == " ");
+  ASSERT_TRUE(g.getOperations() == "");
 }
 
 TEST(GoalUndoTest, testGetOpsTrickyOpsRedux)
