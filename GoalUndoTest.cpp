@@ -83,3 +83,17 @@ TEST(GoalUndoTest, testGetGoalAfterMultiOpGoalUndoAlt)
   g.undoGoal();
   ASSERT_TRUE(g.getGoal() == goalName);
 }
+
+TEST(GoalUndoTest, testDefaultGoalNaming)
+{
+  GoalUndo g;
+  g.addOperation("do something");
+  ASSERT_TRUE(g.getGoal() == "do something");
+}
+
+TEST(GoalUndoTest, testEmptyStringDefaultGoalNaming)
+{
+  GoalUndo g;
+  g.addOperation("");
+  ASSERT_TRUE(g.getGoal() == "");
+}
