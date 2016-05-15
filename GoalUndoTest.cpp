@@ -33,3 +33,22 @@ TEST(GoalUndoTest, testGetGoalWithGoal)
   g.addOperation(goalName,"Write unit test");
   ASSERT_TRUE(g.getGoal() == goalName);
 }
+
+TEST(GoalUndoTest, testGetGoalAfterUndoSingleOperation)
+{
+  GoalUndo g;
+  string goalName = "Get an 'A'";
+  g.addOperation(goalName,"Write buggy unit test");
+  g.undoOperation();
+  ASSERT_TRUE(g.getGoal() == "");
+}
+
+TEST(GoalUndoTest, testGetGoalAfterUndoSingleOperationAlt)
+{
+  GoalUndo g;
+  string goalName = "Get an 'A'";
+  g.addOperation(goalName,"Fork repo");
+  g.addOperation(goalName,"Write buggy unit test");
+  g.undoOperation();
+  ASSERT_TRUE(g.getGoal() != "");
+}
